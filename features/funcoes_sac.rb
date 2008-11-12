@@ -1,9 +1,15 @@
 require 'spec'
 
 class EmprestimoSac
-  attr_accessor :valor, :percentual_juro, :numero_parcelas
-  def valor_amortizacao
+  attr_accessor :valor, :percentual_juro, :numero_parcelas, :parcela_corrente
+  def initialize
+    self.parcela_corrente = 0 
+  end
+  def valor_da_parcela_amortizada
     valor / numero_parcelas
+  end
+  def saldo_devedor
+    valor_da_parcela_amortizada * (numero_parcelas - parcela_corrente)
   end
   
 end
@@ -21,10 +27,15 @@ Given /um empréstimo de (\d+) com (\d)% de juros ao mês em (\d) parcelas/ do |
   @emprestimo.numero_parcelas = numero_parcelas.to_i
 end
 
-When 'eu calcular o valor da parcela amortizada' do
-  @valor_amortizacao = @emprestimo.valor_amortizacao
+When /eu calcular o (.*)/ do |qual_valor|
+  @resultado = @emprestimo.send("#{qual_valor.tr(' ', '_')}")
+end
+When /^olhar a parcela (\d)$/ do |qual_parcela|
+  @emprestimo.parcela_corrente = qual_parcela.to_i
 end
 
 Then /será de (\d*)/ do |amortizacao|
-  @emprestimo.valor_amortizacao == amortizacao.to_f
+  @resultado.should be == amortizacao.to_f
 end
+
+
