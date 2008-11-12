@@ -10,3 +10,14 @@ Funcionalidade: Encontrar o valor da amortização e dos juros
     Quando olhar a parcela 1 
     Quando eu calcular o saldo devedor
     Então será de 21000
+    Quando eu calcular o juro da parcela
+    Então será de 480 
+    Quando olhar a parcela 4
+    Quando eu calcular o juro da parcela
+    Então será de 300
+    Quando olhar a parcela 5
+    Quando eu calcular o juro da parcela
+    Então será de 240
+    Quando eu calcular o saldo devedor
+    Então será de 9000 
+

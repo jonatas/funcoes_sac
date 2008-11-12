@@ -5,13 +5,18 @@ class EmprestimoSac
   def initialize
     self.parcela_corrente = 0 
   end
+  def percentual_juro=(percentual)
+    @percentual_juro = percentual / 100.0
+  end
   def valor_da_parcela_amortizada
     valor / numero_parcelas
   end
   def saldo_devedor
     valor_da_parcela_amortizada * (numero_parcelas - parcela_corrente)
   end
-  
+  def juro_da_parcela
+    valor_da_parcela_amortizada * percentual_juro * (numero_parcelas - parcela_corrente + 1)
+  end
 end
 
 Before do
@@ -37,5 +42,4 @@ end
 Then /será de (\d*)/ do |amortizacao|
   @resultado.should be == amortizacao.to_f
 end
-
 
