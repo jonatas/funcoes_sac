@@ -1,10 +1,12 @@
 require 'spec'
 
 class EmprestimoSac
-  attr_accessor :valor, :percentual_juro, :numero_parcelas, :parcela_corrente
+  attr_accessor :valor, :percentual_juro,
+    :numero_parcelas, :parcela_corrente
   def initialize
     self.parcela_corrente = 0 
   end
+  # percentual já usa com 
   def percentual_juro=(percentual)
     @percentual_juro = percentual / 100.0
   end
@@ -15,7 +17,8 @@ class EmprestimoSac
     valor_da_parcela_amortizada * (numero_parcelas - parcela_corrente)
   end
   def juro_da_parcela
-    valor_da_parcela_amortizada * percentual_juro * (numero_parcelas - parcela_corrente + 1)
+    valor_da_parcela_amortizada * percentual_juro * 
+      (numero_parcelas - parcela_corrente + 1)
   end
 end
 
